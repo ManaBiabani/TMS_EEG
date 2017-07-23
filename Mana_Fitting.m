@@ -53,8 +53,8 @@ for idx = 1:length(ID)
         f_dist_low = @(eta) sum(abs( EEG_vector_low*eta-MEP_vector_low));
         eta_opt_high(j,idx) = fminsearch(f_dist_high, 0 );
         eta_opt_low(j,idx) = fminsearch(f_dist_low, 0 );
-        rho_high = f_dist_high(eta_opt_high(j,idx));
-        rho_low = f_dist_low(eta_opt_low(j,idx));
+        rho_high (j,idx) = f_dist_high(eta_opt_high(j,idx));
+        rho_low (j,idx) = f_dist_low(eta_opt_low(j,idx));
         scaled_EEG_signal_high(j,idx) = {cell2mat(all_high_meantrials(j,idx)).* eta_opt_high(j,idx)};
         scaled_EEG_signal_low(j,idx) = {cell2mat(all_low_meantrials(j,idx)).* eta_opt_low(j,idx)};
     end
@@ -62,4 +62,4 @@ for idx = 1:length(ID)
 end
 
 
-   save('/Volumes/BACKUP_HD/MANA_TMS_EEG/Analyzed/fitting/zerocentered');
+   save('/Volumes/BACKUP_HD/MANA_TMS_EEG/Analyzed/fitting/scaled');
