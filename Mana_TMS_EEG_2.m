@@ -12,7 +12,8 @@ pathOut = '/Volumes/BACKUP_HD/MANA_TMS_EEG/Analyzed/';
 eeglab;
 
         
-    for     idx = 1:size(ID,1)
+    for     idx = 1
+%         idx = 1:size(ID,1)
     
 %          % Clear EEG
             EEG = {};
