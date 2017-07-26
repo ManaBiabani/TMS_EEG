@@ -1,8 +1,8 @@
-clear; close all; clc; 
+clear; close all; clc;
+
 %## Scatterplots for TEP/MEP data and r values
 
 % Make the scatter plot of all individuals TEP/MEP values for each channel/ISI/conditioin ( all ISIs in one figure) and save the plots
-
  load ('/Volumes/BACKUP_HD/MANA_TMS_EEG/Analyzed/Correlations_MEPs_TEPs_allchannels')
 
 % Pick one channel to examine or uncomment the for loop for all channels
