@@ -14,14 +14,15 @@ clear; close all; clc;
      suptitle(num2str(cond{int}));hold on
      
             for  isi = 1:length(ISIs)
-                 subplot(2,4,isi);
+                 subplot(2,4,isi);hold on,
                  scatter(all_TEPs{int}(chanNum,isi,:),all_MEPs{int}(isi,:)'); hold on,
                  xlabel('TEPs');
                  ylabel('MEPs');
-                 title(ISIs(isi));
-                 savefig(f(chanNum),['Correlations_MEPs_TEPs_' cond{int} '_channel' num2str(chanNum)]);
-            end
+                 title(ISIs(isi));hold on,
+                 saveas(f(chanNum),fullfile('/Volumes/BACKUP_HD/MANA_TMS_EEG/Analyzed/myplots/',['scatterplot_MEPs_TEPs_' cond{int} '_channel' num2str(chanNum) ]));
             
+            end
+          
  end
 %     end
 
@@ -46,7 +47,7 @@ clear; close all; clc;
               xlabel('Time(ms)'); hold on
               ylabel('TEPs-MEPs correlation');hold on
               title(num2str(cond{int}))
-              savefig(h(chanNum),['refLine_Correlations_MEPs_TEPs_' (cond{int}) '_channel' num2str(chanNum)]);
+              saveas(h(chanNum),fullfile('/Volumes/BACKUP_HD/MANA_TMS_EEG/Analyzed/myplots/',['refLine_Correlations_MEPs_TEPs_' (cond{int}) '_channel' num2str(chanNum)]));
         end
 end
 %  end
