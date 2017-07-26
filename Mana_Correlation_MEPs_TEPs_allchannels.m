@@ -1,7 +1,7 @@
 clear; close all; clc; 
 
-%###### Correlations between MEPs evoked by ppTMS with 8 different ISIs and suprathreshold (high) and subthreshold (low) conditioning stimulus intensities 
-% and TEPs evoked by spTMS with the two level of intensities at the 8 timepoints corresponding to the ppTMS ISIs #####
+%### Correlations between TEPs and MEPs in different ISIs and stimulus conditions
+
 
 %find and load analyzed MEP and TEP data in the specific time points
 cd '/Volumes/BACKUP_HD/MANA_TMS_EEG/Analyzed'
@@ -29,43 +29,19 @@ all_TEPs{2} = EEG_low_timepoints;
 
 % create an empty cell for the final correlation results for all channels
 correlation_results_allchannels = zeros(numofchannels,length(ISIs),length(all_MEPs));
+Pval = zeros(numofchannels,length(ISIs),length(all_MEPs));
 
 % calculate the correlations between MEPs and TEPs at each ISI for the different conditions and channels 
 for chanNum = 1:numofchannels
     
     for int = 1:length(cond)
             for  isi = 1:length(ISIs)
-             correlation_results_allchannels(chanNum,isi,int) = (corr(squeeze(all_TEPs{int}(chanNum,isi,:)),all_MEPs{int}(isi,:)'));          
+                
+                [correlation_results_allchannels(chanNum,isi,int),Pval(chanNum,isi,int)] = (corr(squeeze(all_TEPs{int}(chanNum,isi,:)),all_MEPs{int}(isi,:)')); 
+ 
             end
     end
 end
 save ('/Volumes/BACKUP_HD/MANA_TMS_EEG/Analyzed/Correlations_MEPs_TEPs_allchannels')
 
 
-% make the scatter plot of r values for all channel (for each channel put all plots of different ISIs for each conditioin in one figure) and save the plots
-
-for chanNum = 5
-    for int = 1:length(cond)
-        f(chanNum) = figure;
-            for  isi = 1:length(ISIs)
-            subplot(2,4,isi);
-            scatter(all_TEPs{int}(chanNum,isi,:),all_MEPs{int}(isi,:)'); hold on,
-            xlabel('TEPs');
-            ylabel('MEPs');
-            title(ISIs(isi));
-            savefig(f(chanNum),['Correlations_MEPs_TEPs_' cond{int} '_channel' num2str(chanNum)]);
-            end
-            
-     % for each channel make the scatter plot of R values of all ISIs for different conditions with a reference line
-     % at zero and save the plots      
-     h(chanNum) = figure;
-     scatter(ISIs,correlation_results_allchannels(chanNum,:,int));hold on,
-     refLine=refline([0 0]);hold on,
-     refLine.Color = 'r'
-     xlabel('Time(ms)');
-     ylabel('TEPs-MEPs correlation');
-     savefig(h(chanNum),['refLine_Correlations_MEPs_TEPs_' (cond{int}) '_channel' num2str(chanNum)]);
-    end
-
-end
-save ('/Volumes/BACKUP_HD/MANA_TMS_EEG/Analyzed/Correlations_MEPs_TEPs_allchannels');
