@@ -7,7 +7,7 @@ clear; close all; clc;
 
 % IDs of participants to analyse
 ID = {'001';'002';'003';'004';'005';'006';'007';'008';'009';'010';'011';'012';'013';'014';'015';'016';'017';'018';'019';'020';'021'};
-
+ID ={'015'}
 % Filename identifiers
 sufix = {'SP_EEG';'SHAM'}
 
@@ -73,11 +73,8 @@ for     idx = 1:length(ID)
                     % Load channel locations
                     EEG = pop_chanedit(EEG, 'lookup','/Users/manabiabanimoghadam/Desktop/Functions/eeglab14_1_0b/plugins/dipfit2.3/standard_BESA/standard-10-5-cap385.elp');
 
-                    %Include exceptions to TMS pulse detection
-                    if ID{idx} == '015'
-                        % Find TMS pulse
-                        EEG = pop_tesa_findpulse( EEG, 'C3', 'refract', 10, 'rate', 10000, 'tmsLabel', 'TMS', 'plots', 'on'); 
-                    elseif ID{idx} == '013'
+                    % Find TMS pulse and include some exceptions to TMS pulse detection
+                    if ID{idx} == '013'
                         EEG = pop_tesa_findpulse( EEG, 'C3', 'refract', 20, 'rate', 10000, 'tmsLabel', 'TMS', 'plots', 'on');
                     else
                         EEG = pop_tesa_findpulse( EEG, 'C3', 'refract', 10, 'rate', 10000, 'tmsLabel', 'TMS', 'plots', 'on');
