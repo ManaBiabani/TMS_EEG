@@ -28,20 +28,20 @@ for idx = 1:length(ID)
     %Interpolate missing channels
     EEG = pop_interp(EEG, EEG.allchan, 'spherical');
     
-    for cond =  1:length(condition)
-        
-        %Extract the data from each condition
-        EEG1 = pop_selectevent( EEG, 'type',condition{cond},'deleteevents','on','deleteepochs','on','invertepochs','off');
-        EEG1 = pop_saveset( EEG1, 'filename', [ID{idx,1} '_FINAL_', condition{cond}],'filepath', [pathOut ID{idx,1}]);
-        
-        %Reference each condition's data to common average
-        EEG1av = pop_reref(EEG1, []);
-        EEG1av = pop_saveset(EEG1av, 'filename', [ID{idx,1} '_FINAL_', condition{cond},'_avref'],'filepath', [pathOut ID{idx,1}]);
-        
-        %Reference each condition's data to average mastoids
-        EEG1mast = pop_reref( EEG1, [29,30]);
-        EEG1mast = pop_saveset( EEG1mast, 'filename', [ID{idx,1} '_FINAL_', condition{cond}, '_mastref'],'filepath', [pathOut ID{idx,1}]);
-        
-    end
+        for cond =  1:length(condition)
+
+            %Extract the data from each condition
+            EEG1 = pop_selectevent( EEG, 'type',condition{cond},'deleteevents','on','deleteepochs','on','invertepochs','off');
+            EEG1 = pop_saveset( EEG1, 'filename', [ID{idx,1} '_FINAL_', condition{cond}],'filepath', [pathOut ID{idx,1}]);
+
+            %Reference each condition's data to common average
+            EEG1av = pop_reref(EEG1, []);
+            EEG1av = pop_saveset(EEG1av, 'filename', [ID{idx,1} '_FINAL_', condition{cond},'_avref'],'filepath', [pathOut ID{idx,1}]);
+
+            %Reference each condition's data to average mastoids
+            EEG1mast = pop_reref( EEG1, [29,30]);
+            EEG1mast = pop_saveset( EEG1mast, 'filename', [ID{idx,1} '_FINAL_', condition{cond}, '_mastref'],'filepath', [pathOut ID{idx,1}]);
+
+        end
     
 end
