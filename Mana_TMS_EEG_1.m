@@ -2,14 +2,11 @@ clear; close all; clc;
 
 % ###### STEP 1 : Epoch, Remove TMS artifact, Down sample #####
 
-% EEGLAB
-[ALLEEG EEG CURRENTSET ALLCOM] = eeglab;
-
 % IDs of participants to analyse
 ID = {'001';'002';'003';'004';'005';'006';'007';'008';'009';'010';'011';'012';'013';'014';'015';'016';'017';'018';'019';'020';'021'};
 
 % Filename identifiers
-sufix = {'SP_EEG';'SHAM'}
+sufix = {'SP_EEG';'SHAM'};
 
 % Suffix for filePathlog
 suf3 = '_trigger.mat';
@@ -21,7 +18,8 @@ blockNum = {'1', '2', '3', '4'};
 pathIn = '/Volumes/BACKUP_HD/MANA_TMS_EEG/Raw/';
 pathOut = '/Volumes/BACKUP_HD/MANA_TMS_EEG/Analyzed/';
 
-[ALLEEG, EEG,blockIndex] = eeglab;
+% EEGLAB
+[ALLEEG, EEG, CURRENTSET, ALLCOM, blockIndex] = eeglab;
 
 for     idx = 1:length(ID)
     
@@ -39,7 +37,7 @@ for     idx = 1:length(ID)
     
     for suf = 1:length(sufix)
         
-        %Include exceptions to the above settings
+        %Include exceptions to blockNum
         if  strcmp(sufix{suf},'SHAM') && strcmp(ID{idx,1},'002')
             blockNum = {'1'};
         elseif not(strcmp(sufix{suf}, 'SHAM'))&& strcmp(ID{idx,1},'002')
@@ -140,7 +138,7 @@ for     idx = 1:length(ID)
                 end;
             end
             
-            % save EEG for each block for each participant
+            % save EEG for each block type for each participant
             [ALLEEG, EEG,blockIndex] = eeg_store(ALLEEG,EEG,block);
             
         end;
