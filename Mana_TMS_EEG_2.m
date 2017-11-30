@@ -40,4 +40,4 @@ for idx = 1:length(ID)
     %Save point
     EEG = pop_saveset( EEG, 'filename', [ID{idx,1} '_all_blocks_ds_reject'], 'filepath', [pathOut ID{idx,1}]);
     
-end
+end  
